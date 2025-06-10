@@ -1,13 +1,31 @@
 import { InputProps } from "../../types/input.types";
+import "./Input.css";
+import { KeyboardEvent } from "react";
 
-export const Input = ({ text, setText }: InputProps) => {
+export const Input = ({ text, setText, onClick = () => {} }: InputProps) => {
+  const handleEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onClick(e);
+    }
+  };
+
   return (
-    <input
-      value={text}
-      onChange={(e) => setText(e.target.value)}
-      type="text"
-      placeholder="Escribe tu mensaje"
-      className="w-full p-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-    />
+    <div className="input-container">
+      <div className="input-wrapper">
+        <input
+          onKeyDown={handleEnter}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          type="text"
+          placeholder="Pregunta lo que quieras"
+          className="input-field"
+        />
+        <div className="input-actions">
+          <button onClick={onClick} disabled={!text} className="send-button">
+            Enviar
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };

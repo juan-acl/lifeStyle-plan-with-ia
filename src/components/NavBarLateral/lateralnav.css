@@ -1,0 +1,111 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #1e1e1e;
+}
+
+.history-chats {
+    margin-top: 80px;
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    padding-right: 4px;
+    scrollbar-width: thin;
+    scrollbar-color: #444 transparent;
+}
+
+.title-menu {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ccc;
+    position: absolute;
+    margin-left: 10px;
+    margin-top: 20px;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background-color: #121212;
+    color: white;
+    padding: 20px 10px;
+    transition: width 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+.sidebar.closed {
+    width: 0;
+    transform: translateX(-100%);
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px;
+}
+
+.menu li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+}
+
+.menu li:hover {
+    background-color: #2a2a2a;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.toggle-button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    background-color: #2a2a2a;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.toggle-button:hover {
+    background-color: #3a3a3a;
+}
+
+.history-chats::-webkit-scrollbar {
+    width: 6px;
+}
+
+.history-chats::-webkit-scrollbar-thumb {
+    background-color: #444;
+    border-radius: 3px;
+}
+
+.chat-item {
+    font-size: 14px;
+    color: #e0e0e0;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.chat-item:hover {
+    background-color: #333;
+}

@@ -15,6 +15,8 @@ export interface ChatRequest {
   model: string;
   messages: Message[];
   temperature: number;
+  max_tokens?: number;
+  stream?: boolean;
 }
 
 export interface ChatResponse {

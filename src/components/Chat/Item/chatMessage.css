@@ -1,0 +1,32 @@
+.chat-item {
+    display: flex;
+    width: 100%;
+}
+
+.chat-item.user {
+    justify-content: flex-end;
+}
+
+.chat-item.assistant {
+    justify-content: flex-start;
+    word-wrap: break-word;
+    max-width: fit-content;
+    overflow-x: auto;
+    width: 100%;
+}
+
+.chat-bubble {
+    max-width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    word-wrap: break-word;
+    background-color: #242424;
+    color: white;
+}
+
+.chat-item.user .chat-bubble {
+    background-color: #666;
+    color: #f0f0f0;
+    padding: 0.75rem 1rem;
+
+}

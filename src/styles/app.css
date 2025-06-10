@@ -1,0 +1,16 @@
+.navbar-lateral {
+    width: 280px;
+    flex-shrink: 0;
+    background-color: #121212;
+    border-right: 1px solid #333;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
