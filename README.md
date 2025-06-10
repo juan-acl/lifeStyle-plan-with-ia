@@ -136,5 +136,13 @@ For questions or contributions, feel free to submit issues or pull requests.
 
 ---
 
-**Author:** Juan chuc (juan-acl on github)
+## Examples
+
+![Dashboard, entry page](./public/dashboard.png)
+![Form for generate lyfeStyle plan](./public/form.png)
+![Conversation with DeepSeek R1](./public/conversation.png)
+
+
+
+**Author:** Juan Chuc (juan-acl on github)
 **License:** MIT
