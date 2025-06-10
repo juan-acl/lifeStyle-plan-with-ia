@@ -30,61 +30,61 @@ export const LifestyleForm = ({
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-4 text-white max-w-xl mx-auto"
     >
-      <h2 className="text-lg font-bold mb-4">Crear Plan de Estilo de Vida</h2>
+      <h2 className="text-lg font-bold mb-4">Create Lifestyle Plan</h2>
 
       <input
         {...register("nombre", { required: true })}
-        placeholder="Tu nombre"
+        placeholder="Your name"
         className="input"
       />
-      {errors.nombre && <p className="error">Este campo es obligatorio</p>}
+      {errors.nombre && <p className="error">This field is required</p>}
 
       <input
         type="number"
         {...register("edad", { required: true, min: 0 })}
-        placeholder="Edad"
+        placeholder="Age"
         className="input"
       />
-      {errors.edad && <p className="error">Edad válida requerida</p>}
+      {errors.edad && <p className="error">Valid age is required</p>}
 
       <input
         {...register("ocupacion", { required: true })}
-        placeholder="Ocupación actual"
+        placeholder="Current occupation"
         className="input"
       />
-      {errors.ocupacion && <p className="error">Este campo es obligatorio</p>}
+      {errors.ocupacion && <p className="error">This field is required</p>}
 
       <textarea
         {...register("objetivosProfesionales", { required: true })}
-        placeholder="Objetivos profesionales"
+        placeholder="Professional goals"
         className="input"
       />
       {errors.objetivosProfesionales && (
-        <p className="error">Escribe tus objetivos</p>
+        <p className="error">Please enter your goals</p>
       )}
 
-      <label className="block">Nivel de actividad física</label>
+      <label className="block">Physical activity level</label>
       <select {...register("nivelActividad")} className="input">
-        <option value="alto">Alto</option>
-        <option value="medio">Medio</option>
-        <option value="bajo">Bajo</option>
+        <option value="alto">High</option>
+        <option value="medio">Medium</option>
+        <option value="bajo">Low</option>
       </select>
 
       <textarea
         {...register("intereses")}
-        placeholder="¿Qué hobbies o actividades te interesan?"
+        placeholder="What hobbies or activities are you interested in?"
         className="input"
       />
 
       <textarea
         {...register("restriccionesAlimenticias")}
-        placeholder="¿Tienes restricciones alimenticias?"
+        placeholder="Do you have any dietary restrictions?"
         className="input"
       />
 
       <textarea
         {...register("horarioDisponible")}
-        placeholder="Disponibilidad semanal"
+        placeholder="Weekly availability"
         className="input"
       />
 
@@ -93,14 +93,14 @@ export const LifestyleForm = ({
           type="submit"
           className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
         >
-          Generar plan
+          Generate Plan
         </button>
         <button
           onClick={() => setShowForm(false)}
           type="button"
           className="bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
         >
-          Cancelar
+          Cancel
         </button>
       </div>
     </form>

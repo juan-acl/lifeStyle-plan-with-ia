@@ -109,3 +109,11 @@ body {
 .chat-item:hover {
     background-color: #333;
 }
+
+.menu img {
+    filter: invert(1);
+}
+
+.openicon {
+    filter: invert(1);
+}

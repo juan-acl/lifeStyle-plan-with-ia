@@ -17,12 +17,12 @@ export const Input = ({ text, setText, onClick = () => {} }: InputProps) => {
           value={text}
           onChange={(e) => setText(e.target.value)}
           type="text"
-          placeholder="Pregunta lo que quieras"
+          placeholder="Type your message here..."
           className="input-field"
         />
         <div className="input-actions">
           <button onClick={onClick} disabled={!text} className="send-button">
-            Enviar
+            Send
           </button>
         </div>
       </div>

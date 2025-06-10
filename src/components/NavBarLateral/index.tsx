@@ -28,7 +28,7 @@ export const NavBarLateral = ({
           className="toggle-button"
           onClick={() => setIsOpen((prev) => !prev)}
         >
-          <img src={Open} alt="openicon" />
+          <img src={Open} alt="openicon" className="openicon" />
         </button>
 
         <aside className={`sidebar ${isOpen ? "open" : "closed"}`}>
