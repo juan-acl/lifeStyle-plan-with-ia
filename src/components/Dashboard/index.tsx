@@ -2,7 +2,11 @@ import "./dashboard.css";
 import { useEffect, useState } from "react";
 import { Input } from "../Input";
 import { Chat, Message } from "../../types/chats.types";
-import { formatLLMTextToHTML, thinkReplacement } from "../../utils/think";
+import {
+  formatLLMTextToHTML,
+  generatePromptFromForm,
+  thinkReplacement,
+} from "../../utils/think";
 import CreateChatServices from "../../services/createChat.services";
 import SessionStorageServices from "../../services/sesionStorage.services";
 import { useLoader } from "../../hooks/useLoader";
@@ -10,12 +14,14 @@ import Loader from "../Loader";
 import { v4 } from "uuid";
 import { ChatMessageList } from "../Chat/List/list";
 import { useNavigate, useParams } from "react-router-dom";
+import { LifestyleForm } from "../Form";
 
 function Dashboard() {
   const { id } = useParams();
   const servicesChat = new CreateChatServices();
   const sessionStorageServices = SessionStorageServices.getInstance();
   const { loading, hideLoader, showLoader } = useLoader();
+  const [showForm, setShowForm] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const navigate = useNavigate();
 
@@ -26,8 +32,8 @@ function Dashboard() {
     const responseChat = await servicesChat.createChat({
       model: import.meta.env.VITE_MODEL_LM_ESTUDIO,
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.4,
-      max_tokens: 512,
+      temperature: 0.7,
+      max_tokens: 500,
       stream: false,
     });
 
@@ -46,22 +52,20 @@ function Dashboard() {
         }))
       );
     } else {
-      console.warn("No chat found with the given ID");
+      navigate("/");
     }
   }, [id]);
 
-  const initializeChat = async () => {
-    if (!text) return;
-
+  const initializeChat = async (prompt: string) => {
     try {
       showLoader();
       const [responseChat, title] = await Promise.all([
         servicesChat.createChat({
           model: import.meta.env.VITE_MODEL_LM_ESTUDIO,
-          messages: [{ role: "user", content: text }],
+          messages: [{ role: "user", content: prompt }],
           temperature: 0.5,
         }),
-        generateTitle(text),
+        generateTitle(prompt),
       ]);
 
       const assistantResponse = thinkReplacement(
@@ -69,7 +73,7 @@ function Dashboard() {
       );
 
       const newMessages: Message[] = [
-        { role: "user", content: text },
+        { role: "user", content: prompt },
         { role: "assistant", content: assistantResponse },
       ];
 
@@ -88,7 +92,6 @@ function Dashboard() {
     } catch (error) {
       console.log("error en la petición", error);
     } finally {
-      setText("");
       hideLoader();
     }
   };
@@ -98,9 +101,15 @@ function Dashboard() {
     showLoader();
 
     try {
+      const currentChat = sessionStorageServices.getChatById(id);
+      const previousMessages = currentChat?.messages.slice(-6) || [];
+      previousMessages.push({
+        role: "user",
+        content: text,
+      });
       const responseChat = await servicesChat.createChat({
         model: import.meta.env.VITE_MODEL_LM_ESTUDIO,
-        messages: [{ role: "user", content: text }],
+        messages: previousMessages,
         temperature: 0.5,
       });
 
@@ -127,9 +136,27 @@ function Dashboard() {
     }
   };
 
+  const handleInputClick = () => {
+    if (!id) {
+      setShowForm(true);
+    }
+  };
+
   return (
     <>
       {loading && <Loader />}
+      {showForm && (
+        <div className="modal-form">
+          <LifestyleForm
+            onSubmit={(data) => {
+              const prompt = generatePromptFromForm(data);
+              setShowForm(false);
+              initializeChat(prompt);
+            }}
+            setShowForm={setShowForm}
+          />
+        </div>
+      )}
       <div className="chat-wrapper">
         <div className="chat-main">
           {id ? (
@@ -142,12 +169,24 @@ function Dashboard() {
             </h2>
           )}
         </div>
-        <div className="chat-input">
-          <Input
-            text={text}
-            setText={setText}
-            onClick={id ? conversation : initializeChat}
-          />
+        <div
+          className="chat-input"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          {id ? (
+            <Input
+              text={text}
+              setText={setText}
+              onClick={id ? conversation : handleInputClick}
+            />
+          ) : (
+            <button
+              onClick={id ? conversation : handleInputClick}
+              disabled={loading}
+            >
+              Create Plan
+            </button>
+          )}
         </div>
       </div>
     </>

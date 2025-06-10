@@ -35,17 +35,17 @@ export const NavBarLateral = ({
           <ul className="menu">
             <li onClick={createNewChat}>
               <img src={NewChat} alt="newChaticon" />
-              Nuevo chat
+              New Chat
             </li>
 
             {chats.length > 0 && (
               <li onClick={clear}>
                 <img src={NewChat} alt="newChaticon" />
-                Limpiar historial de chats
+                Clear Chats
               </li>
             )}
 
-            <h6 className="title-menu">Historial ({chats.length})</h6>
+            <h6 className="title-menu">History ({chats.length})</h6>
 
             <div className="history-chats">
               {chats.map((item, index) => (

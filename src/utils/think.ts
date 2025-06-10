@@ -1,3 +1,5 @@
+import { LifestyleFormValues } from "../components/Form";
+
 export const thinkReplacement = (text: string) => {
   return text.replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
 };
@@ -5,10 +7,8 @@ export const thinkReplacement = (text: string) => {
 export function formatLLMTextToHTML(input: string): string {
   let formatted = input;
 
-  // Convert **bold** to <strong>
   formatted = formatted.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
-  // Convert numbered list to <ol><li>...</li></ol>
   formatted = formatted.replace(
     /(\d+)\.\s(.+?)(?=\d+\.|\n|$)/gs,
     (_, num, item) => {
@@ -21,7 +21,6 @@ export function formatLLMTextToHTML(input: string): string {
     }
   );
 
-  // Convert bullet points to <ul><li>...</li></ul>
   formatted = formatted.replace(
     /(?:^|\n)[-–•]\s(.+?)(?=\n[-–•]|\n\d+\.|\n|$)/gs,
     (match) => {
@@ -37,8 +36,24 @@ export function formatLLMTextToHTML(input: string): string {
     }
   );
 
-  // Replace newlines with <br> for spacing (optional)
   formatted = formatted.replace(/\n+/g, "<br/>");
 
   return formatted.trim();
+}
+
+export function generatePromptFromForm(data: LifestyleFormValues): string {
+  return `Hola, soy ${data.nombre}, tengo ${data.edad} años y trabajo como ${data.ocupacion}. 
+Mis objetivos profesionales son: ${data.objetivosProfesionales}.
+Mi nivel de actividad física es ${data.nivelActividad}.
+Estoy interesado en: ${data.intereses}.
+Mis restricciones alimenticias son: ${data.restriccionesAlimenticias}.
+Mi disponibilidad semanal es: ${data.horarioDisponible}.
+
+Por favor, genera un plan de estilo de vida personalizado que incluya:
+- Plan profesional
+- Plan de entrenamiento
+- Plan de hobbies
+- Plan de nutrición
+
+Usa un lenguaje claro y organizado por secciones.`;
 }
